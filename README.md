@@ -7,8 +7,8 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Language-JavaScript-f7df1e?style=flat-square"/>
-  <img src="https://img.shields.io/badge/Platform-GitHub%20Pages-222222?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Language-Web%20and%20MQL5-1B6CA8?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Platform-GitHub%20Pages%20and%20MT5-222222?style=flat-square"/>
   <img src="https://img.shields.io/badge/Author-nique__372%20And%20Leo-C9D6DF?style=flat-square"/>
   <a href="./LICENSE">
     <img src="https://img.shields.io/badge/License-Nique%26Leo%20NL--ND-red.svg"/>
