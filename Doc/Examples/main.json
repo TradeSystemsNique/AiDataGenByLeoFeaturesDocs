@@ -1,0 +1,19 @@
+{
+    "examples": [
+        {
+            "file": "base_template.fgblc",
+            "desc": "A minimal template demonstrating the core .fgblc structure: ICT order blocks, technical indicators, and time features across 6 columns. Use this as a starting point for your own configuration.",
+            "id": "base"
+        },
+        {
+            "file": "all.fgblc",
+            "desc": "A complete feature vector (35 columns) combining ICT order blocks, technical indicators (AD, RSI, VIDYA, StdDev), economic news event flags, and time-based features. Production-ready for flat ML models.",
+            "id": "all"
+        },
+        {
+            "file": "matrix.fgblc",
+            "desc": "A Matrix configuration generating a 5-row x 3-column rolling context window using @New Matrix with auto-generated indices (#Generate). Each row represents one bar of history. Ideal for LSTM or Transformer-based models.",
+            "id": "matrix"
+        }
+    ]
+}

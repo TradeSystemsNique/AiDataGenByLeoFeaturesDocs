@@ -1,0 +1,21 @@
+name = [RSI Context Matrix] // 5-bar rolling window - 3 features per bar (15 values total)
+
+@ Config
+{
+  cols = 3; // Features per row: RSI value, VIDYA distance, normalized StdDev
+}
+
+// Matrix of 5 rows: each row captures a different bar in the lookback window.
+// Useful for LSTM, Transformer, or any sequence-based ML model.
+@ New Matrix(rows=5)
+{
+  // #Generate([start, step, len]) auto-builds the index list.
+  // [0,1,5] -> indices [0, 1, 2, 3, 4]
+  // idx=0 = current bar, idx=4 = 4 bars back
+  # Generate([0,1,5])
+  {
+    [Rsi_Valor][](Timeframe=Current|Period=14|Applied=0|Hide=true)
+    [Vidya_Distancia][](Timeframe=Current|CmoPeriod=9|EmaPeriod=12|Applied=0|Hide=true)
+    [StdDev_Normalizado][](Timeframe=Current|MaPeriod=20|MaShift=0|MaMethod=0|Applied=0|Hide=true)
+  }
+}

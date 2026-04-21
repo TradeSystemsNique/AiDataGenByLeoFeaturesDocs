@@ -1,0 +1,66 @@
+﻿name = [All Features] // Complete feature vector: ICT + Indicators + News + Time (35 columns)
+
+@ Config
+{
+  cols = 35;
+}
+
+@ New vector
+{
+  // --- ICT Order Blocks (4 features) ---
+  # normal (index=0)
+  {
+    [Ob_AlcistaMasCercanosDist][](Timeframe=Current|Show=true|Range=250|Lenth=4|MaxEsperaRop=40|TypeOb=5)
+    [Ob_BajistaMasCercanosDist][](Timeframe=Current|Show=true|Range=250|Lenth=4|MaxEsperaRop=40|TypeOb=5)
+    [Ob_SizeAlcistas][](Timeframe=Current|Show=true|Range=250|Lenth=4|MaxEsperaRop=40|TypeOb=5)
+    [Ob_SizeBajistas][](Timeframe=Current|Show=true|Range=250|Lenth=4|MaxEsperaRop=40|TypeOb=5)
+  }
+
+  // --- Technical Indicators (15 features) ---
+  // index=1: last closed bar values
+  # normal (index=1)
+  {
+    [AD_Pendiente][](Timeframe=Current|AppliedVolume=0|PeriodAnalysis=14)
+    [AD_Tendencia][](Timeframe=Current|AppliedVolume=0|PeriodAnalysis=14)
+    [Rsi_Valor][](Timeframe=Current|Period=14|Applied=0|Hide=true)
+    [Rsi_Zona][](Timeframe=Current|Period=14|Applied=0|Hide=true|Overbought=70|Oversold=30)
+    [Rsi_Pendiente][](Timeframe=Current|Period=14|Applied=0|Hide=true|PeriodAnalysis=10)
+    [Rsi_Avg][](Timeframe=Current|Period=14|Applied=0|Hide=true|PeriodAnalysis=10)
+    [Vidya_Zona][](Timeframe=Current|CmoPeriod=9|EmaPeriod=12|Applied=0|Hide=true)
+    [Vidya_Distancia][](Timeframe=Current|CmoPeriod=9|EmaPeriod=12|Applied=0|Hide=true)
+    [Vidya_Pendiente][](Timeframe=Current|CmoPeriod=9|EmaPeriod=12|Applied=0|Hide=true|PeriodAnalysis=10)
+    [Vidya_Tendencia][](Timeframe=Current|CmoPeriod=9|EmaPeriod=12|Applied=0|Hide=true|PeriodAnalysis=10)
+    [StdDev_Valor][](Timeframe=Current|MaPeriod=20|MaShift=0|MaMethod=0|Applied=0|Hide=true)
+    [StdDev_Normalizado][](Timeframe=Current|MaPeriod=20|MaShift=0|MaMethod=0|Applied=0|Hide=true)
+    [StdDev_Pendiente][](Timeframe=Current|MaPeriod=20|MaShift=0|MaMethod=0|Applied=0|Hide=true|PeriodAnalysis=10)
+  }
+
+  // --- Economic News Event Flags (13 features) ---
+  // Returns 1 if the event is scheduled today, 0 otherwise
+  # normal (index=0)
+  {
+    [News_HasCpiUsaToday][]()
+    [News_HasNfpUsaToday][]()
+    [News_HasPbiUsaToday][]()
+    [News_HasInteresRateUsaToday][]()
+    [News_HasIppToday][]()
+    [News_HasIsmPmiManufactareroUsaToday][]()
+    [News_HasIsmPmiNoManufactareroUsaToday][]()
+    [News_HasCorePceUsaToday][]()
+    [News_HasJoltsJobsOpeningUsaToday][]()
+    [News_HasAdpUsaToday][]()
+    [News_HasInitialJobblesClaimUsaToday][]()
+    [News_CurrentImpact][]()
+    [News_RealImpact][](BarsToAnalyze=20)
+  }
+
+  // --- Time Features (5 features) ---
+  # normal (index=0)
+  {
+    [Time_Hour][](Timeframe=Current)
+    [Time_DayOfWeek][](Timeframe=Current)
+    [Time_DayOfYear][](Timeframe=Current)
+    [Time_Month][](Timeframe=Current)
+    [Time_SecondsOfDayStart][](Timeframe=Current)
+  }
+}
