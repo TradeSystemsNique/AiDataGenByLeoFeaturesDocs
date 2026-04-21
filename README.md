@@ -101,4 +101,4 @@ By downloading or using this repository, you accept the license.
 
 ---
 
-**Copyright © 2026 Nique-Leo. All rights reserved.**
+**Copyright © 2026 Nique-Leo.**
