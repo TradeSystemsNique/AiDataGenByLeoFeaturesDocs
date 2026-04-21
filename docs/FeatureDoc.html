@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<!--
+//+------------------------------------------------------------------+
+//| Base                                                             |
+//+------------------------------------------------------------------+
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Reference to features available in AiDataGenByLeo">
+    <meta name="author" content="Nique 372 and Leo">
+    <title>AiDataGenByLeo Features</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!-- Estilos-->
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Estilos.css">
+    <link rel="stylesheet" href="Fgblc/fgblc_theme.css">
+
+    <!-- JS-->
+    <script type="module" src="Main.js"></script>
+</head>
+
+<!--
+//+------------------------------------------------------------------+
+//| Cuerpo                                                           |
+//+------------------------------------------------------------------+
+-->
+
+<body>
+
+    <!-- Top bar -->
+    <header class="topbar">
+        <div class="logo">AiDataGenByLeo<em> \ Features</em></div>
+        <div class="search-wrap">
+            <span class="search-icon">&#9906;</span>
+            <input type="text" id="searchInput" placeholder="Search feature...">
+        </div>
+        <div class="topbar-right">
+            <div class="count-badge">
+                Showing <span id="visibleCount">0</span> Features
+            </div>
+        </div>
+    </header>
+
+    <!-- Layout: sidebar + main -->
+    <div class="layout">
+
+        <!-- Sidebar (se rellena dinamicamente desde Main.js) -->
+        <nav class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Category</div>
+                <div id="sidebar_categories"></div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Examples</div>
+                <div id="sidebar_examples"></div>
+            </div>
+        </nav>
+
+        <!-- Contenido principal que se motrara (dinamico) -->
+        <main class="main">
+            <!-- Grid de features -->
+            <div class="features-grid" id="featuresGrid"></div>
+
+            <!-- Estado vacio en caso de no encontrase features -->
+            <div class="empty" id="emptyState">
+                <div class="empty_icon">&#9900;</div>
+                No features were found matching that criterion.
+            </div>
+
+            <!-- Arriba del foter navegacion -->
+            <div class="pagination" id="pagination"></div>
+
+            <!-- Visualizaicon de ejemplos -->
+            <div id="example_view" style="display:none">
+                <div class="example_desc_wrap">
+                    <span class="example_desc_title">Description</span>
+                    <p id="example_desc"></p>
+                </div>
+                <br>
+                <div class="example_code_wrap">
+                    <span class="example_code_title">Code</span>
+                    <pre><code id="example_code"></code></pre>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <span>Copyright &copy; 2026 Niquel &amp; Leo - AiDataGenByLeo</span>
+        <a href="https://forge.mql5.io/nique_372/AiDataGenByLeo" target="_blank">View repository &rarr;</a>
+    </footer>
+
+</body>
+
+</html>
