@@ -1,4 +1,3 @@
-
 //+------------------------------------------------------------------+
 //| Configuracion                                                    |
 //+------------------------------------------------------------------+
@@ -280,15 +279,15 @@ function make_card(f, global_idx)
         </div>
         <div class="card_desc">${f.desc}</div>
         <button class="card_expand_btn">
-            <span class="arrow">&#9654;</span> ver parametros y ejemplo
+            <span class="arrow">&#9654;</span> View parameters and examples
         </button>
         <div class="card_detail">
             <div class="detail_section">
-                <div class="detail_label">Parametros (${param_count})</div>
+                <div class="detail_label">Parameters (${param_count})</div>
                 <div class="params_list">${make_params_html(f.params)}</div>
             </div>
             <div class="detail_section">
-                <div class="detail_label">Ejemplo DSL</div>
+                <div class="detail_label">DSL Example</div>
                 <div class="dsl_block">${make_dsl_html(f)}</div>
             </div>
         </div>
