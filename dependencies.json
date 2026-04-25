@@ -1,11 +1,25 @@
 {
-    "repos" : [    
+    "repos": [
         {
-        "name" : "AiDataGenByLeo",
-        "url"  : "https://forge.mql5.io/nique_372/AiDataGenByLeo",
-        "rama" : "main",
-        "comment" : "public"
+            "name": "AiDataGenByLeo",
+            "url": "https://forge.mql5.io/nique_372/AiDataGenByLeo",
+            "rama": "main",
+            "comment": "public"
         }
     ],
-    "min_mt5_build" : 5430
+    "min_mt5_build": 5430,
+    "other_languages": [
+        {
+            "name": "HTML",
+            "version": "latest"
+        },
+        {
+            "name": "CSS",
+            "version": "latest"
+        },
+        {
+            "name": "JS",
+            "version": "latest"
+        }
+    ]
 }
