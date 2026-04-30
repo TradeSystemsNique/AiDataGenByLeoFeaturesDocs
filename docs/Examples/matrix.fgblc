@@ -14,8 +14,8 @@ name = [RSI Context Matrix] // 5-bar rolling window - 3 features per bar (15 val
   // idx=0 = current bar, idx=4 = 4 bars back
   # Generate([0,1,5])
   {
-    [Rsi_Valor][](Timeframe=Current|Period=14|Applied=0|Hide=true)
-    [Vidya_Distancia][](Timeframe=Current|CmoPeriod=9|EmaPeriod=12|Applied=0|Hide=true)
-    [StdDev_Normalizado][](Timeframe=Current|MaPeriod=20|MaShift=0|MaMethod=0|Applied=0|Hide=true)
+    [Rsi_Valor][](Timeframe=_Period|Period=14|Applied=PRICE_CLOSE|Hide=true)
+    [Vidya_Distancia][](Timeframe=_Period|CmoPeriod=9|EmaPeriod=12|Applied=PRICE_CLOSE|Hide=true)
+    [StdDev_Normalizado][](Timeframe=_Period|MaPeriod=20|MaShift=0|MaMethod=MODE_SMA|Applied=PRICE_CLOSE|Hide=true)
   }
 }

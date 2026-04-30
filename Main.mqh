@@ -49,11 +49,11 @@ public:
 bool CFeaturesDocsHtml::WriteInFileJson()
  {
 //---
-  const string file = (PathGetDirectory(__PATH__) + "Doc\\features.json");
+  const string file = (PathGetDirectory(__PATH__) + "docs\\features.json");
   HANDLE handle = kernel32::CreateFileW(file, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, 0, 0);
   if(handle == INVALID_HANDLE)
    {
-    LogCriticalError(StringFormat("Fallo al crear archivo = %s, ultimo err in kernel32 = %d", file, kernel32::GetLastError()), FUNCION_ACTUAL);
+    LogCriticalError(StringFormat("Fallo al crear archivo:\n'%s'\nUltimo err in kernel32 = %d", file, kernel32::GetLastError()), FUNCION_ACTUAL);
     return false;
    }
 

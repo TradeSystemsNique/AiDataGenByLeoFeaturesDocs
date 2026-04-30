@@ -11,22 +11,22 @@ name = [Feature Template] // Rename this to identify your configuration
   // index=0: evaluate at the current bar
   # normal (index=0)
   {
-    [Ob_AlcistaMasCercanosDist][](Timeframe=Current|Show=true|Range=250|Lenth=4|MaxEsperaRop=40|TypeOb=5)
-    [Ob_BajistaMasCercanosDist][](Timeframe=Current|Show=true|Range=250|Lenth=4|MaxEsperaRop=40|TypeOb=5)
+    [Ob_AlcistaMasCercanoDist][](Timeframe=_Period|Show=true|Range=250|Lenth=4|MaxEsperaRop=40|TypeOb=ORDER_BLOCKS_PATTER_TICK_VOLUME)
+    [Ob_BajistaMasCercanoDist][](Timeframe=_Period|Show=true|Range=250|Lenth=4|MaxEsperaRop=40|TypeOb=ORDER_BLOCKS_PATTER_TICK_VOLUME)
   }
 
   // --- Technical Indicators ---
   // index=1: read the last closed bar (avoids repainting)
   # normal (index=1)
   {
-    [Rsi_Valor][](Timeframe=Current|Period=14|Applied=0|Hide=true)
-    [Rsi_Zona][](Timeframe=Current|Period=14|Applied=0|Hide=true|Overbought=70|Oversold=30)
+    [Rsi_Valor][](Timeframe=_Period|Period=14|Applied=PRICE_CLOSE|Hide=true)
+    [Rsi_Zona][](Timeframe=_Period|Period=14|Applied=PRICE_CLOSE|Hide=true|Overbought=70|Oversold=30)
   }
 
   // --- Time Context ---
   # normal (index=0)
   {
-    [Time_Hour][](Timeframe=Current)
-    [Time_DayOfWeek][](Timeframe=Current)
+    [Time_Hour][](Timeframe=_Period)
+    [Time_DayOfWeek][](Timeframe=_Period)
   }
 }

@@ -283,6 +283,9 @@ function make_card(f, global_idx)
         </button>
         <div class="card_detail">
             <div class="detail_section">
+                <div class="detail_label">Class name: ${f.class_name}</div>
+            </div>
+            <div class="detail_section">
                 <div class="detail_label">Parameters (${param_count})</div>
                 <div class="params_list">${make_params_html(f.params)}</div>
             </div>
