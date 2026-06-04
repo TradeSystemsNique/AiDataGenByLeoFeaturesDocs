@@ -23,6 +23,8 @@
 #define FEATURESDOC_FILENAME_FEATURES_JSON ("features.json")
 
 
+namespace TSN 
+{
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -57,13 +59,10 @@ bool CFeaturesDocsHtml::WriteInFileJson()
     return false;
    }
 
-//---
-  uchar data[];
-  g_json_builder.GetBufferU8(data);
 
 //---
   uint writen = 0;
-  kernel32::WriteFile(handle, data, sizeof(uchar) * ArraySize(data), writen, NULL);
+  kernel32::WriteFile(handle, g_json_builder.m_buf, sizeof(uchar) *   g_json_builder.m_pos, writen, NULL);
   kernel32::CloseHandle(handle);
   return true;
  }
@@ -113,11 +112,11 @@ bool CFeaturesDocsHtml::Run(void)
     g_json_builder.Obj();
 
     //---
-    g_json_builder.Key("class_name").Val(creadores[i].ClassNameCreado());
-    g_json_builder.Key("name").Val(keys[i]);
-    g_json_builder.Key("desc").Val(creadores[i].Desc());
-    g_json_builder.Key("type").Val(creadores[i].Type());
-    g_json_builder.Key("example").Val(StringFormat("[%s][](%s)", keys[i], creadores[i].Params())); // tal cual
+    g_json_builder.Key("class_name").ValSNoRef(creadores[i].ClassNameCreado());
+    g_json_builder.Key("name").ValS(keys[i]);
+    g_json_builder.Key("desc").ValSNoRef(creadores[i].Desc());
+    g_json_builder.Key("type").ValSNoRef(creadores[i].Type());
+    g_json_builder.Key("example").ValS(StringFormat("[%s][](%s)", keys[i], creadores[i].Params())); // tal cual
     g_json_builder.Key("params").Arr();
 
     //---
@@ -136,9 +135,9 @@ bool CFeaturesDocsHtml::Run(void)
           LogError(StringFormat("Falllo al hacer split param, se requiere 2 key=val, val:\n%s", arr[i]), FUNCION_ACTUAL);
           return false;
          }
-        g_json_builder.Key("name").Val(temp[0]);
-        g_json_builder.Key("type").Val(temp[1]);
-
+        g_json_builder.Key("name").ValS(temp[0]);
+        g_json_builder.Key("type").ValS(temp[1]);
+ 
         //---
         g_json_builder.EndObj();
        }
@@ -153,6 +152,7 @@ bool CFeaturesDocsHtml::Run(void)
 //---
   return WriteInFileJson();
  }
+} 
 //+------------------------------------------------------------------+
 /*
 {

@@ -24,7 +24,7 @@
 void OnStart()
  {
 //---
-  CFeaturesDocsHtml doc;
+  TSN::CFeaturesDocsHtml doc;
   doc.Run();
  
 //---
