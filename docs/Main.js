@@ -3,7 +3,7 @@
 //+------------------------------------------------------------------+
 // Solo el core sin lenguajes
 import hljs from 'https://esm.sh/highlight.js/lib/core';
-import fgblc_language from './Fgblc/fgblc_language.js';
+import yaml from 'https://esm.sh/highlight.js/lib/languages/yaml';
 
 //+------------------------------------------------------------------+
 //| Configuracion                                                    |
@@ -344,7 +344,10 @@ function make_dsl_html(f)
             .replace(/\|/g, `<span class="dsl_sep"> | </span>`)
         : "";
 
-    return `[<span class="dsl_name">${name}</span>]${second}(${params_html})`;
+    return `[<span class="dsl_name">${name}</span>]${second}(${params_html})
+    
+    
+    `;
 }
 
 //+------------------------------------------------------------------+
@@ -465,7 +468,7 @@ async function on_example_click(ex, btn)
     // Aplicamos highligh
     const code_el = document.createElement("code");
     code_el.textContent = code;
-    code_el.className = "language-fgblc";
+    code_el.className = "language-yaml";
     hljs.highlightElement(code_el);
 
     // Guardar el innerHTML ya coloreado en cache
@@ -488,7 +491,7 @@ function show_example_view(ex, highlighted_html)
 
     // Insertar HTML ya coloreado directamente
     const code_el = document.getElementById("example_code");
-    code_el.className = "language-fgblc";
+    code_el.className = "language-yaml";
     code_el.innerHTML = highlighted_html;  // ya coloreado, no necesita highlight
 }
 
@@ -505,7 +508,7 @@ function show_example_view(ex, highlighted_html)
 function Main()
 {
 
-    hljs.registerLanguage('fgblc', fgblc_language)
+    hljs.registerLanguage('yaml', yaml)
 
     // Agregamos un evento a edit input (on searh)
     document.getElementById("searchInput").addEventListener("input", e =>

@@ -2,7 +2,7 @@
     "examples": [
         {
             "file": "base_template.fgblc",
-            "desc": "A minimal template demonstrating the core .fgblc structure: ICT order blocks, technical indicators, and time features across 6 columns. Use this as a starting point for your own configuration.",
+            "desc": "A minimal template demonstrating the core YAML structure of the fgblc schema: ICT order blocks, technical indicators, and time features across 6 columns. Use this as a starting point for your own configuration.",
             "id": "base"
         },
         {
@@ -12,7 +12,7 @@
         },
         {
             "file": "matrix.fgblc",
-            "desc": "A Matrix configuration generating a 5-row x 3-column rolling context window using @New Matrix with auto-generated indices (#Generate). Each row represents one bar of history. Ideal for LSTM or Transformer-based models.",
+            "desc": "A Matrix configuration (output.type: AIDATALEO_GEN_MATRIX) generating a 5-row x 3-column rolling context window using mode: generate for auto-generated indices. Each row represents one bar of history. Ideal for LSTM or Transformer-based models.",
             "id": "matrix"
         }
     ]

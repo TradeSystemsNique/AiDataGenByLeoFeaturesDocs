@@ -1,66 +1,137 @@
-﻿name = [All Features] // Complete feature vector: ICT + Indicators + News + Time (35 columns)
+# Complete feature vector: ICT + Indicators + News + Time (35 columns)
+name: All Features
 
-@ Config
-{
-  cols = 35;
-}
+config:
+  cols: 35
 
-@ New vector
-{
-  // --- ICT Order Blocks (4 features) ---
-  # normal (index=0)
-  {
-    [Ob_AlcistaMasCercanoDist][](Timeframe=_Period|Show=true|Range=250|Lenth=4|MaxEsperaRop=40|TypeOb=ORDER_BLOCKS_PATTER_TICK_VOLUME)
-    [Ob_BajistaMasCercanoDist][](Timeframe=_Period|Show=true|Range=250|Lenth=4|MaxEsperaRop=40|TypeOb=ORDER_BLOCKS_PATTER_TICK_VOLUME)
-    [Ob_SizeAlcistas][](Timeframe=_Period|Show=true|Range=250|Lenth=4|MaxEsperaRop=40|TypeOb=ORDER_BLOCKS_PATTER_TICK_VOLUME)
-    [Ob_SizeBajistas][](Timeframe=_Period|Show=true|Range=250|Lenth=4|MaxEsperaRop=40|TypeOb=ORDER_BLOCKS_PATTER_TICK_VOLUME)
-  }
+output:
+  type: AIDATALEO_GEN_VECTOR
+  contexts:
 
-  // --- Technical Indicators (15 features) ---
-  // index=1: last closed bar values
-  # normal (index=1)
-  {
-    [AD_Pendiente][](Timeframe=_Period|AppliedVolume=VOLUME_TICK|PeriodAnalysis=14)
-    [AD_Tendencia][](Timeframe=_Period|AppliedVolume=VOLUME_TICK|PeriodAnalysis=14)
-    [Rsi_Valor][](Timeframe=_Period|Period=14|Applied=PRICE_CLOSE|Hide=true)
-    [Rsi_Zona][](Timeframe=_Period|Period=14|Applied=PRICE_CLOSE|Hide=true|Overbought=70|Oversold=30)
-    [Rsi_Pendiente][](Timeframe=_Period|Period=14|Applied=PRICE_CLOSE|Hide=true|PeriodAnalysis=10)
-    [Rsi_Avg][](Timeframe=_Period|Period=14|Applied=PRICE_CLOSE|Hide=true|PeriodAnalysis=10)
-    [Vidya_Zona][](Timeframe=_Period|CmoPeriod=9|EmaPeriod=12|Applied=PRICE_CLOSE|Hide=true)
-    [Vidya_Distancia][](Timeframe=_Period|CmoPeriod=9|EmaPeriod=12|Applied=PRICE_CLOSE|Hide=true)
-    [Vidya_Pendiente][](Timeframe=_Period|CmoPeriod=9|EmaPeriod=12|Applied=PRICE_CLOSE|Hide=true|PeriodAnalysis=10)
-    [Vidya_Tendencia][](Timeframe=_Period|CmoPeriod=9|EmaPeriod=12|Applied=PRICE_CLOSE|Hide=true|PeriodAnalysis=10)
-    [StdDev_Valor][](Timeframe=_Period|MaPeriod=20|MaShift=0|MaMethod=MODE_SMA|Applied=PRICE_CLOSE|Hide=true)
-    [StdDev_Normalizado][](Timeframe=_Period|MaPeriod=20|MaShift=0|MaMethod=MODE_SMA|Applied=PRICE_CLOSE|Hide=true)
-    [StdDev_Pendiente][](Timeframe=_Period|MaPeriod=20|MaShift=0|MaMethod=MODE_SMA|Applied=PRICE_CLOSE|Hide=true|PeriodAnalysis=10)
-  }
+    # --- ICT Order Blocks (4 features) ---
+    - mode: normal
+      idx: 0
+      data:
+        - class: Ob_AlcistaMasCercanoDist
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, show: true, range: 250, length: 4, max_espera_rop_swing: 40, type_ob: ORDER_BLOCKS_PATTER_TICK_VOLUME }
+        - class: Ob_BajistaMasCercanoDist
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, show: true, range: 250, length: 4, max_espera_rop_swing: 40, type_ob: ORDER_BLOCKS_PATTER_TICK_VOLUME }
+        - class: Ob_SizeAlcistas
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, show: true, range: 250, length: 4, max_espera_rop_swing: 40, type_ob: ORDER_BLOCKS_PATTER_TICK_VOLUME }
+        - class: Ob_SizeBajistas
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, show: true, range: 250, length: 4, max_espera_rop_swing: 40, type_ob: ORDER_BLOCKS_PATTER_TICK_VOLUME }
 
-  // --- Economic News Event Flags (13 features) ---
-  // Returns 1 if the event is scheduled today, 0 otherwise
-  # normal (index=0)
-  {
-    [News_HasCpiUsaToday][]()
-    [News_HasNfpUsaToday][]()
-    [News_HasPbiUsaToday][]()
-    [News_HasInteresRateUsaToday][]()
-    [News_HasIppToday][]()
-    [News_HasIsmPmiManufactureroUsaToday][]()
-    [News_HasIsmPmiNoManufactureroUsaToday][]()
-    [News_HasCorePceUsaToday][]()
-    [News_HasJoltsJobsOpeningUsaToday][]()
-    [News_HasAdpUsaToday][]()
-    [News_HasInitialJobblesClaimUsaToday][]()
-    [News_CurrentImpact][]()
-    [News_RealImpact][](BarsToAnalyze=20)
-  }
+    # --- Technical Indicators (13 features) ---
+    # idx 1: last closed bar values
+    - mode: normal
+      idx: 1
+      data:
+        - class: AD_Pendiente
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, applied_volume: VOLUME_TICK, period_analysis: 14 }
+        - class: AD_Tendencia
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, applied_volume: VOLUME_TICK, period_analysis: 14 }
+        - class: Rsi_Valor
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, period: 14, applied: PRICE_CLOSE, hide: true }
+        - class: Rsi_Zona
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, period: 14, applied: PRICE_CLOSE, hide: true, overbought: 70, oversold: 30 }
+        - class: Rsi_Pendiente
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, period: 14, applied: PRICE_CLOSE, hide: true, period_analysis: 10 }
+        - class: Rsi_Avg
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, period: 14, applied: PRICE_CLOSE, hide: true, period_analysis: 10 }
+        - class: Vidya_Zona
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, cmo_period: 9, ema_period: 12, applied: PRICE_CLOSE, hide: true }
+        - class: Vidya_Distancia
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, cmo_period: 9, ema_period: 12, applied: PRICE_CLOSE, hide: true }
+        - class: Vidya_Pendiente
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, cmo_period: 9, ema_period: 12, applied: PRICE_CLOSE, hide: true, period_analysis: 10 }
+        - class: Vidya_Tendencia
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, cmo_period: 9, ema_period: 12, applied: PRICE_CLOSE, hide: true, period_analysis: 10 }
+        - class: StdDev_Valor
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, ma_period: 20, ma_shift: 0, ma_method: MODE_SMA, applied: PRICE_CLOSE, hide: true }
+        - class: StdDev_Normalizado
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, ma_period: 20, ma_shift: 0, ma_method: MODE_SMA, applied: PRICE_CLOSE, hide: true }
+        - class: StdDev_Pendiente
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, ma_period: 20, ma_shift: 0, ma_method: MODE_SMA, applied: PRICE_CLOSE, hide: true, period_analysis: 10 }
 
-  // --- Time Features (5 features) ---
-  # normal (index=0)
-  {
-    [Time_Hour][](Timeframe=_Period)
-    [Time_DayOfWeek][](Timeframe=_Period)
-    [Time_DayOfYear][](Timeframe=_Period)
-    [Time_Month][](Timeframe=_Period)
-    [Time_SecondsOfDayStart][](Timeframe=_Period)
-  }
-}
+    # --- Economic News Event Flags (13 features) ---
+    # News_HasEventToday is the generic class: 1 if the event is scheduled today, 0 otherwise.
+    # Use "prefix" to tell repeated instances apart in the CSV header.
+    - mode: normal
+      idx: 0
+      data:
+        - class: News_HasEventToday
+          prefix: CpiUsa
+          params: { country_code: "US", event_code: "consumer-price-index-mm" }
+        - class: News_HasEventToday
+          prefix: NfpUsa
+          params: { country_code: "US", event_code: "nonfarm-payrolls" }
+        - class: News_HasEventToday
+          prefix: PbiUsa
+          params: { country_code: "US", event_code: "gross-domestic-product-qq" }
+        - class: News_HasEventToday
+          prefix: FedTasaInteresUsa
+          params: { country_code: "US", event_code: "fed-interest-rate-decision" }
+        - class: News_HasEventToday
+          prefix: IppUsa
+          params: { country_code: "US", event_code: "producer-price-index-mm" }
+        - class: News_HasEventToday
+          prefix: IsmPmiManufactureroUsa
+          params: { country_code: "US", event_code: "ism-manufacturing-pmi" }
+        - class: News_HasEventToday
+          prefix: IsmPmiNoManufactureroUsa
+          params: { country_code: "US", event_code: "ism-non-manufacturing-pmi" }
+        - class: News_HasEventToday
+          prefix: CorePceUsa
+          params: { country_code: "US", event_code: "core-pce-price-index-mm" }
+        - class: News_HasEventToday
+          prefix: JoltsJobsOpeningUsa
+          params: { country_code: "US", event_code: "jolts-job-openings" }
+        - class: News_HasEventToday
+          prefix: AdpUsa
+          params: { country_code: "US", event_code: "adp-nonfarm-employment-change" }
+        - class: News_HasEventToday
+          prefix: InitialJoblessClaimUsa
+          params: { country_code: "US", event_code: "initial-jobless-claims" }
+        - class: News_CurrentImpact
+          prefix: null
+          params: {}
+        - class: News_RealImpact
+          prefix: null
+          params: { bars_to_analize: 20 }
+
+    # --- Time Features (5 features) ---
+    - mode: normal
+      idx: 0
+      data:
+        - class: Time_Hour
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT }
+        - class: Time_DayOfWeek
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT }
+        - class: Time_DayOfYear
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT }
+        - class: Time_Month
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT }
+        - class: Time_SecondsOfDayStart
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT }

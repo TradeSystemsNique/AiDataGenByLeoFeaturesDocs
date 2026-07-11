@@ -1,21 +1,29 @@
-name = [RSI Context Matrix] // 5-bar rolling window - 3 features per bar (15 values total)
+# 5-bar rolling window - 3 features per bar (15 values total)
+name: RSI Context Matrix
 
-@ Config
-{
-  cols = 3; // Features per row: RSI value, VIDYA distance, normalized StdDev
-}
+config:
+  cols: 3 # Features per row: RSI value, VIDYA distance, normalized StdDev
 
-// Matrix of 5 rows: each row captures a different bar in the lookback window.
-// Useful for LSTM, Transformer, or any sequence-based ML model.
-@ New Matrix(rows=5)
-{
-  // #Generate([start, step, len]) auto-builds the index list.
-  // [0,1,5] -> indices [0, 1, 2, 3, 4]
-  // idx=0 = current bar, idx=4 = 4 bars back
-  # Generate([0,1,5])
-  {
-    [Rsi_Valor][](Timeframe=_Period|Period=14|Applied=PRICE_CLOSE|Hide=true)
-    [Vidya_Distancia][](Timeframe=_Period|CmoPeriod=9|EmaPeriod=12|Applied=PRICE_CLOSE|Hide=true)
-    [StdDev_Normalizado][](Timeframe=_Period|MaPeriod=20|MaShift=0|MaMethod=MODE_SMA|Applied=PRICE_CLOSE|Hide=true)
-  }
-}
+output:
+  type: AIDATALEO_GEN_MATRIX
+  rows: 5
+  contexts:
+
+    # Matrix of 5 rows: each row captures a different bar in the lookback window.
+    # Useful for LSTM, Transformer, or any sequence-based ML model.
+    #
+    # mode: generate builds the index list from [start, step, stop].
+    # [0, 1, 4] -> indices [0, 1, 2, 3, 4]
+    # idx=0 = current bar, idx=4 = 4 bars back
+    - mode: generate
+      idx: [0, 1, 4]
+      data:
+        - class: Rsi_Valor
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, period: 14, applied: PRICE_CLOSE, hide: true }
+        - class: Vidya_Distancia
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, cmo_period: 9, ema_period: 12, applied: PRICE_CLOSE, hide: true }
+        - class: StdDev_Normalizado
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, ma_period: 20, ma_shift: 0, ma_method: MODE_SMA, applied: PRICE_CLOSE, hide: true }

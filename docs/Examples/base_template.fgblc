@@ -1,32 +1,44 @@
-name = [Feature Template] // Rename this to identify your configuration
+# Rename this to identify your configuration
+name: Feature Template
 
-@ Config
-{
-  cols = 6; // Must equal the total number of features declared below
-}
+config:
+  cols: 6 # Must equal the total number of features declared below
 
-@ New vector
-{
-  // --- ICT Order Blocks ---
-  // index=0: evaluate at the current bar
-  # normal (index=0)
-  {
-    [Ob_AlcistaMasCercanoDist][](Timeframe=_Period|Show=true|Range=250|Lenth=4|MaxEsperaRop=40|TypeOb=ORDER_BLOCKS_PATTER_TICK_VOLUME)
-    [Ob_BajistaMasCercanoDist][](Timeframe=_Period|Show=true|Range=250|Lenth=4|MaxEsperaRop=40|TypeOb=ORDER_BLOCKS_PATTER_TICK_VOLUME)
-  }
+output:
+  type: AIDATALEO_GEN_VECTOR
+  contexts:
 
-  // --- Technical Indicators ---
-  // index=1: read the last closed bar (avoids repainting)
-  # normal (index=1)
-  {
-    [Rsi_Valor][](Timeframe=_Period|Period=14|Applied=PRICE_CLOSE|Hide=true)
-    [Rsi_Zona][](Timeframe=_Period|Period=14|Applied=PRICE_CLOSE|Hide=true|Overbought=70|Oversold=30)
-  }
+    # --- ICT Order Blocks ---
+    # idx 0: evaluate at the current bar
+    - mode: normal
+      idx: 0
+      data:
+        - class: Ob_AlcistaMasCercanoDist
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, show: true, range: 250, length: 4, max_espera_rop_swing: 40, type_ob: ORDER_BLOCKS_PATTER_TICK_VOLUME }
+        - class: Ob_BajistaMasCercanoDist
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, show: true, range: 250, length: 4, max_espera_rop_swing: 40, type_ob: ORDER_BLOCKS_PATTER_TICK_VOLUME }
 
-  // --- Time Context ---
-  # normal (index=0)
-  {
-    [Time_Hour][](Timeframe=_Period)
-    [Time_DayOfWeek][](Timeframe=_Period)
-  }
-}
+    # --- Technical Indicators ---
+    # idx 1: read the last closed bar (avoids repainting)
+    - mode: normal
+      idx: 1
+      data:
+        - class: Rsi_Valor
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, period: 14, applied: PRICE_CLOSE, hide: true }
+        - class: Rsi_Zona
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT, period: 14, applied: PRICE_CLOSE, hide: true, overbought: 70, oversold: 30 }
+
+    # --- Time Context ---
+    - mode: normal
+      idx: 0
+      data:
+        - class: Time_Hour
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT }
+        - class: Time_DayOfWeek
+          prefix: null
+          params: { timeframe: PERIOD_CURRENT }

@@ -23,7 +23,7 @@
 #define FEATURESDOC_FILENAME_FEATURES_JSON ("features.json")
 
 
-namespace TSN 
+namespace TSN
 {
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -100,11 +100,7 @@ bool CFeaturesDocsHtml::Run(void)
 //---
   string keys[];
   CAiDataFeatureCreator* creadores[];
-  const int tfea = CAiDataGenFeatureFactory::s_hash_str_to_creator.CopyTo(keys, creadores);
-
-//---
-  string arr[];
-  string temp[2];
+  const int tfea = CAiDataGenFeatureFactory::s_hash_str_to_creator.GetValues(creadores, keys);
 
 //---
   for(int i = 0; i < tfea; i++)
@@ -116,35 +112,10 @@ bool CFeaturesDocsHtml::Run(void)
     g_json_builder.Key("name").ValS(keys[i]);
     g_json_builder.Key("desc").ValSNoRef(creadores[i].Desc());
     g_json_builder.Key("type").ValSNoRef(creadores[i].Type());
-    g_json_builder.Key("example").ValS(StringFormat("[%s][](%s)", keys[i], creadores[i].Params())); // tal cual
-    g_json_builder.Key("params").Arr();
+    g_json_builder.Key("example").ValSNoRef(creadores[i].Params()); // tal cual
+
 
     //---
-    const int t = StringSplit(creadores[i].Params(), '|', arr);
-    if(t > 0)
-     {
-      for(int k = 0; k < t; k++)
-       {
-        //---
-        g_json_builder.Obj();
-
-        //---
-        const int tv = StringSplit(arr[k], '=', temp);
-        if(tv != 2)
-         {
-          LogError(StringFormat("Falllo al hacer split param, se requiere 2 key=val, val:\n%s", arr[i]), FUNCION_ACTUAL);
-          return false;
-         }
-        g_json_builder.Key("name").ValS(temp[0]);
-        g_json_builder.Key("type").ValS(temp[1]);
- 
-        //---
-        g_json_builder.EndObj();
-       }
-     }
-
-    //---
-    g_json_builder.EndArr();
     g_json_builder.EndObj();
    }
   g_json_builder.EndArr().EndObj();
@@ -152,19 +123,5 @@ bool CFeaturesDocsHtml::Run(void)
 //---
   return WriteInFileJson();
  }
-} 
-//+------------------------------------------------------------------+
-/*
-{
- "examples" : [
-  {
-   "file" : "ejemplo_vector.json",
-   "desc" : "Ejmplo de como usar vector json\n e......."
-   "id" : "vector"
-  }
-  .
-  .
-
- ]
 }
-*/
+//+------------------------------------------------------------------+
