@@ -258,7 +258,6 @@ function make_card(f, global_idx)
 {
     const color = get_color(f.type);
     const num_str = "#" + String(global_idx + 1).padStart(3, "0");
-    const param_count = f.params.length;
 
     const card = document.createElement("div");
     card.className = "feature-card";
@@ -269,7 +268,7 @@ function make_card(f, global_idx)
             <div class="card_icon">${f.name.charAt(0)}</div>
             <div class="card_meta">
                 <div class="card_name">${f.name}</div>
-                <div class="card_sub">${num_str} &middot; ${param_count} param${param_count !== 1 ? "s" : ""}</div>
+                <div class="card_sub">${num_str}</div>
             </div>
             <div class="card_badges">
                 <span class="badge badge_type" style="color:${color};border-color:${color};background:${color}18">
@@ -279,20 +278,10 @@ function make_card(f, global_idx)
         </div>
         <div class="card_desc">${f.desc}</div>
         <button class="card_expand_btn">
-            <span class="arrow">&#9654;</span> View parameters and examples
+            <span class="arrow">&#9654;</span> View YAML example
         </button>
         <div class="card_detail">
-            <div class="detail_section">
-                <div class="detail_label">Class name: ${f.class_name}</div>
-            </div>
-            <div class="detail_section">
-                <div class="detail_label">Parameters (${param_count})</div>
-                <div class="params_list">${make_params_html(f.params)}</div>
-            </div>
-            <div class="detail_section">
-                <div class="detail_label">DSL Example</div>
-                <div class="dsl_block">${make_dsl_html(f)}</div>
-            </div>
+            <pre class="dsl_block"><code class="language-yaml">${make_yaml_html(f)}</code></pre>
         </div>
     `;
 
@@ -304,50 +293,13 @@ function make_card(f, global_idx)
     return card;
 }
 
-function make_params_html(params)
+// Arma el snippet YAML (comentario con el class_name real de C++ + class + params)
+// y lo devuelve ya coloreado por highlight.js
+function make_yaml_html(f)
 {
-    if (!params.length)
-        return `<span class="no_params">— sin parametros —</span>`;
-
-    return params.map(p => `
-        <div class="param_row">
-            <span class="param_name">${p.name}</span>
-            <span class="param_type">${p.type}</span>
-        </div>
-    `).join("");
-}
-
-function make_dsl_html(f)
-{
-    const raw = f.example || "";
-
-    if (!raw)
-        return `<span class="no_params">— sin ejemplo —</span>`;
-
-    // Separar el string en: [Nombre] + [][] + (params)
-    const match = raw.match(/^\[([^\]]*)\](\[[^\]]*\])\(([^)]*)\)$/);
-
-    if (!match)
-        return `<span class="dsl_sep">${raw}</span>`; // fallback: mostrar raw sin colorear
-
-    const name = match[1]; // "Rsi_Valor"
-    const second = match[2]; // "[]"
-    const params = match[3]; // "Period=14|Applied=0"
-
-    // Colorear params  Param=valor|Param2=valor2...
-    const params_html = params
-        ? params.replace(/([A-Za-z_]+)=([^|]+)/g,
-            (_, key, val) =>
-                `<span class="dsl_key">${key}</span>` +
-                `<span class="dsl_sep">=</span>` +
-                `<span class="dsl_val">${val}</span>`)
-            .replace(/\|/g, `<span class="dsl_sep"> | </span>`)
-        : "";
-
-    return `[<span class="dsl_name">${name}</span>]${second}(${params_html})
-    
-    
-    `;
+    // class_name se deja tal cual viene (sin forzar mayus/minus)
+    const yaml_src = `# ${f.class_name}\nclass: ${f.name}\nparams: ${f.example}`;
+    return hljs.highlight(yaml_src, { language: "yaml" }).value;
 }
 
 //+------------------------------------------------------------------+

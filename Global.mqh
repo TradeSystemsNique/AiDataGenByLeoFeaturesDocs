@@ -20,9 +20,14 @@
 //+------------------------------------------------------------------+
 //--- Incluiremos las librerias de eventos principales y el autocleaner
 #include <TSN\\MQLArticles\\Utils\\TFManager.mqh>
-#include <TSN\\MQLArticles\\Utils\\FA\\AutoDelete.mqh>
-#include <TSN\\AiDataGen\\GenericData\\Complex.mqh>
 
+//---
+CNewBarManager g_new_bar_manager;
+#define TSN_ICTLIBRARY_INSTANCE_BAR_MANAGER g_new_bar_manager
+
+//---
+#include <TSN\\MQLArticles\\Utils\\FA\\AutoDelete.mqh>
+#include <TSN\\AiDataGen\\GenericData\\AllFeatures.mqh>
 
 //+------------------------------------------------------------------+
 //|                                                                  |
