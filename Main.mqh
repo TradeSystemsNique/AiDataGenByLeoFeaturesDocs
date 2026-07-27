@@ -100,7 +100,7 @@ bool CFeaturesDocsHtml::Run(void)
 //---
   string keys[];
   CAiDataFeatureCreator* creadores[];
-  const int tfea = CAiDataGenFeatureFactory::s_hash_str_to_creator.GetValues(creadores, keys);
+  const int tfea = CAiDataGenFeatureFactory::s_hash_str_to_creator.CopyTo(keys, creadores);
 
 //---
   for(int i = 0; i < tfea; i++)
